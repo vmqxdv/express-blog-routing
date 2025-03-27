@@ -7,6 +7,16 @@ router.get('/', (_, res) => {
   res.json(postsData);
 });
 
+router.get('/:id', (req, res) => {
+  const postId = Number(req.params.id);
+  const requestedItem = postsData[postId + 1];
+
+  if (!requestedItem) return res.status(404).json({ error: `Post con id '${postId}' non trovato` });
+
+  res.json(requestedItem);
+});
+
+
 router.post('/', function (req, res) {
   res.send('Aggiunto nuovo dolce: ' + req.params.id);
 });
