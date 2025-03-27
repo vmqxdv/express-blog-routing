@@ -7,30 +7,30 @@ router.get('/', (_, res) => {
   res.json(postsData);
 });
 
-router.get('/:id', (req, res) => {
-  const postId = Number(req.params.id);
-  const requestedItem = postsData[postId + 1];
+router.get('/:slug', (req, res) => {
+  const postSlug = req.params.slug;
+  const requestedItem = postsData.find(element => element.slug === postSlug);
 
-  if (!requestedItem) return res.status(404).json({ error: `Post con id '${postId}' non trovato` });
+  if (!requestedItem) return res.status(404).json({ error: `Slag '${postSlug}' non trovato` });
 
   res.json(requestedItem);
 });
 
 
 router.post('/', function (req, res) {
-  res.send('Aggiunto nuovo dolce: ' + req.params.id);
+  res.send('Aggiunto nuovo dolce: ' + req.params.slug);
 });
 
-router.put('/:id', function (req, res) {
-  res.send('[PUT] Modificato dolce: ' + req.params.id);
+router.put('/:slug', function (req, res) {
+  res.send('[PUT] Modificato dolce: ' + req.params.slug);
 });
 
-router.patch('/:id', function (req, res) {
-  res.send('[PATCH] Modificato il dolce: ' + req.params.id);
+router.patch('/:slug', function (req, res) {
+  res.send('[PATCH] Modificato il dolce: ' + req.params.slug);
 });
 
-router.delete('/:id', function (req, res) {
-  res.send('Eliminato il dolce: ' + req.params.id);
+router.delete('/:slug', function (req, res) {
+  res.send('Eliminato il dolce: ' + req.params.slug);
 });
 
 
